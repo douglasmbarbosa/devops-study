@@ -41,4 +41,4 @@ jobs:
               with:
                 name: ${{ env.nome-artefato }}
             - name: Verificando Aquivos Baixados
-              run: ls && ls ./artifacts
+              run: ls 

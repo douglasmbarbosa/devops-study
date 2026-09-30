@@ -1,0 +1,42 @@
+name: Artifacts no Github Actions
+
+on: 
+  workflow_dispatch:
+  
+env: 
+    nome-artefato: teste-artefato
+    
+jobs:
+
+    upload_files: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Verificando Aquivos Existentes
+              run: ls
+            - name: Gerando Arquivos
+              run: |
+                mkdir artifacts
+                echo "Arquivo de teste 01" > ./artifacts/arquivo_01.txt
+                echo "Arquivo de teste 02" > ./artifacts/arquivo_02.txt
+                echo "Arquivo de teste 03" > ./artifacts/arquivo_03.txt
+                echo "Arquivo de teste 04" > ./artifacts/arquivo_04.txt
+            - name: Enviando Arquivos Para Artifacts
+              id: upload-artifact
+              uses: actions/upload-artifact@v7
+              with:
+                name: ${{ env.nome-artefato }}
+                path: ./artifacts
+                overwrite: true
+            - name: Verificando Arquivos Criados 
+              run: ls && ls ./artifacts
+    
+    download-artifact: 
+        runs-on: ubuntu-latest
+        steps: 
+            - name: Verificando Aquivos Existentes
+              run: ls
+            - name: Obtendo Arquivos do Artifacts
+              uses: actions/download-artifact@v8
+              with:
+                name: ${{ env.nome-artefato }}
+                

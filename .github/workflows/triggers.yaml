@@ -1,16 +1,22 @@
 name: Triggers de Workflow
 
-on: 
-  workflow_dispatch: 
-    inputs:
-      exemplo-input:
-        type: string
-        description: Teste de input de valor
-        required: true
+on:
+
+  # workflow_dispatch: # Disparo manual de workflow
+  #   inputs:
+  #     exemplo-input:
+  #       type: string
+  #       description: Teste de input de valor
+  #       required: true
+
+  push: # Sempre que fizermos push / commit para o repositório remoto nas branchs especificadas. 
+    branches: ["main", feature/*, release/]
 
 jobs: 
   teste: 
     runs-on: ubuntu-latest
     steps:
-      - name: Action de Teste
-        run: echo "${{ inputs.exemplo-input }}"
+      # - name: Action de Teste Workflow Dispatch
+      #   run: echo "${{ inputs.exemplo-input }}"
+      - name: Action disparada pelo Push
+        run: echo "Evento rodou pelo push"

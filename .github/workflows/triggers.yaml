@@ -1,7 +1,7 @@
 name: Triggers de Workflow
 
 on:
-
+  
   # workflow_dispatch: # Disparo manual de workflow
   #   inputs:
   #     exemplo-input:
@@ -9,14 +9,27 @@ on:
   #       description: Teste de input de valor
   #       required: true
 
-  push: # Sempre que fizermos push / commit para o repositório remoto nas branchs especificadas. 
-    branches: ["main", feature/*, release/]
-
+  # push: # Sempre que fizermos push / commit para o repositório remoto
+  #   branches: ["main", feature/*, release/] # nas branchs especificadas. 
+  #   tags: # Especificando exigência de tags
+  #     -v*
+  #   paths: # Especifica que só irá disparar se houver alteração nos caminhos especificados
+  #     - "src/*"
+    # branches-ignore: 
+    # tags-ignore:
+    # paths-ignore:
+  
+  pull_request: # Quando houver uma solicitação de pull request 
+    branches: ["main"] # Nas branchs especificadas
+    types: clos
+        
 jobs: 
   teste: 
     runs-on: ubuntu-latest
     steps:
       # - name: Action de Teste Workflow Dispatch
       #   run: echo "${{ inputs.exemplo-input }}"
-      - name: Action disparada pelo Push
-        run: echo "Evento rodou pelo push"
+      # - name: Action disparada pelo Push
+      #   run: echo "Evento rodou pelo push"
+      - name: Action disparada pelo Pull Request
+        run: echo "Testes de validação do Pull Request"

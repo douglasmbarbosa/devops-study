@@ -1,8 +1,9 @@
 from datetime import datetime
 import pytz
 
+
 class ContaCorrente():
-  
+
     @staticmethod
     def _data_hora():
         fuso_BR = pytz.timezone('Brazil/East')
@@ -17,33 +18,33 @@ class ContaCorrente():
         self.agencia = agencia
         self.numero_conta = numero_conta
         self.transacoes = []
-            
+
     def consultar_saldo(self):
         print(f"Saldo disponível R${self.saldo:,.2f}")
-    
+
     def depositar(self, valor):
         self.saldo += valor
         self.consultar_saldo()
         self.transacoes.append((valor, self.saldo, ContaCorrente._data_hora()))
-        
+
     def _verificar_limite_conta(self):
-      self.limite = -1000
-      return  self.limite
-    
+        self.limite = -1000
+        return self.limite
+
     def sacar(self, valor):
-        if((self.saldo - valor) < self._verificar_limite_conta()):
-          print(f"Não é possível sacar {valor}")
+        if ((self.saldo - valor) < self._verificar_limite_conta()):
+            print(f"Não é possível sacar {valor}")
         else:
-          self.saldo -= valor
-          self.transacoes.append((-valor, self.saldo, ContaCorrente._data_hora()))
-        self.consultar_saldo()
-    
+            self.saldo -= valor
+            self.transacoes.append((-valor, self.saldo, ContaCorrente._data_hora()))
+            self.consultar_saldo()
+
     def mostrar_extrato(self):
-       for transacao in self.transacoes:
-          print(transacao)
+        for transacao in self.transacoes:
+            print(transacao)
 
 
-#Programa
+# Programa
 
 conta_corrente_1 = ContaCorrente("Douglas", "123.456.789-00", 1234, 45690)
 
@@ -53,6 +54,6 @@ conta_corrente_1.depositar(1000)
 conta_corrente_1.sacar(200)
 conta_corrente_1.sacar(100)
 
-print(f"-" * 30)
+print("-" * 30)
 
 conta_corrente_1.mostrar_extrato()

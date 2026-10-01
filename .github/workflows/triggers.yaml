@@ -1,0 +1,16 @@
+name: Triggers de Workflow
+
+on: 
+  workflow_dispatch: 
+    inputs:
+      exemplo-input:
+      type: string
+      description: Teste de input de valor
+      required: true
+
+jobs: 
+  teste: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Action de Teste
+        run: echo "${{ inputs.exemplo-input }}"

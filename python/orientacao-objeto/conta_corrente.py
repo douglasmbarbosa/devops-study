@@ -25,43 +25,43 @@ class ContaCorrente():
         return horario_BR
 
     def __init__(self, nome, cpf, agencia, numero_conta):
-        self.nome = nome
-        self.cpf = cpf
-        self.saldo = 0
-        self.limite = None
-        self.agencia = agencia
-        self.numero_conta = numero_conta
-        self.transacoes = []
+        self._nome = nome 
+        self._cpf = cpf
+        self._saldo = 0
+        self._limite = None
+        self._agencia = agencia
+        self._numero_conta = numero_conta
+        self._transacoes = []
 
     def consultar_saldo(self):
-        print(f"Saldo disponível R${self.saldo:,.2f}")
+        print(f"Saldo disponível R${self._saldo:,.2f}")
 
     def depositar(self, valor):
-        self.saldo += valor
+        self._saldo += valor
         self.consultar_saldo()
-        self.transacoes.append((valor, self.saldo, ContaCorrente._data_hora()))
+        self._transacoes.append((valor, self._saldo, ContaCorrente._data_hora()))
 
     def _verificar_limite_conta(self):
-        self.limite = -1000
-        return self.limite
+        self._limite = -1000
+        return self._limite
 
     def sacar(self, valor):
-        if ((self.saldo - valor) < self._verificar_limite_conta()):
+        if ((self._saldo - valor) < self._verificar_limite_conta()):
             print(f"Não é possível sacar {valor}")
         else:
-            self.saldo -= valor
-            self.transacoes.append((-valor, self.saldo, ContaCorrente._data_hora()))
+            self._saldo -= valor
+            self._transacoes.append((-valor, self._saldo, ContaCorrente._data_hora()))
             self.consultar_saldo()
 
     def mostrar_extrato(self):
-        for transacao in self.transacoes:
+        for transacao in self._transacoes:
             print(transacao)
 
     def transferir(self, valor, conta_destino):
-        self.saldo -= valor
-        self.transacoes.append((valor, self.saldo, ContaCorrente._data_hora()))
-        conta_destino.saldo += valor
-        conta_destino.transacoes.append((valor, self.saldo, ContaCorrente._data_hora()))
+        self._saldo -= valor
+        self._transacoes.append((valor, self._saldo, ContaCorrente._data_hora()))
+        conta_destino._saldo += valor
+        conta_destino._transacoes.append((valor, self._saldo, ContaCorrente._data_hora()))
 
 
 # Programa

@@ -40,4 +40,4 @@ jobs:
       # - name: Action disparada pelo Pull Request
       #   run: echo "Testes de validação do Pull Request"
       - name: Operação com String
-        run: echo "{{ github.actor  == inputs.exemplo_input }}"
+        run: echo "${{ github.actor  == inputs.exemplo_input }}"

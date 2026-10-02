@@ -1,12 +1,17 @@
 name: Triggers de Workflow
 
 on:
-  # workflow_dispatch: # Disparo manual de workflow
-  #   inputs:
-  #     exemplo-input:
-  #       type: string
-  #       description: Teste de input de valor
-  #       required: true
+  workflow_dispatch: # Disparo manual de workflow
+    inputs:
+      exemplo-input:
+        type: string
+        description: Teste de input de valor
+        required: true
+        default: "teste"
+      deploy:
+        type: boolean
+        default: true
+      
 
   # push: # Sempre que fizermos push / commit para o repositório remoto
   #   branches: ["main", feature/*, release/] # nas branchs especificadas. 
@@ -18,9 +23,12 @@ on:
   #   tags-ignore:
   #   paths-ignore:
   
-  pull_request: # Quando houver uma solicitação de pull request 
-    branches: ["main"] # Nas branchs especificadas
-    types: opened
+  # pull_request: # Quando houver uma solicitação de pull request 
+  #   branches: ["main"] # Nas branchs especificadas
+  #   types: opened
+
+  # schedule: # Programando a execução do workflow em um periodo especificado, de forma agendada
+  #   - cron: "*/5 * * * *"
 jobs: 
   teste: 
     runs-on: ubuntu-latest
@@ -29,6 +37,7 @@ jobs:
       #   run: echo "${{ inputs.exemplo-input }}"
       # - name: Action disparada pelo Push
       #   run: echo "Evento rodou pelo push"
-      - name: Action disparada pelo Pull Request
-        run: echo "Testes de validação do Pull Request"
-        
+      # - name: Action disparada pelo Pull Request
+      #   run: echo "Testes de validação do Pull Request"
+      - name: Operação com String
+        run: echo "{{ github.actor  == inputs.exemplo_input }}"

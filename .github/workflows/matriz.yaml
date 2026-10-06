@@ -3,6 +3,9 @@ name: Matrizes
 on:
   workflow_dispatch: 
 
+concurrency:  # Todas as pipelines com essa chave não executarão em paralelo. Dessa forma, não há concorrência.
+  group: chave-concorrencia
+  cancel-in-progress: true # Essa feature cancela a execução do job que está rodando para iniciar o novo
 jobs: 
   matrizes: 
     strategy:

@@ -15,8 +15,10 @@ jobs:
           echo "Executando job na branch main"
           echo "Branch: ${{ github.ref }}"
   feature-hotifix: 
-    name: Esse job só executa nas branchs feature/*
+    name: Esse job só executa nas branchs feature/ e hotifix/*
     runs-on: ubuntu-latest
+    needs: [apenas-main]
+    if: ${{ success()  }} # Executa com base no status do workflow. success (default), failure, always, cancelled 
     steps:
       - name: Executando feature
         if: ${{ contains(github.ref,'feature/')  }} # Contexto de Step
@@ -25,3 +27,11 @@ jobs:
       - name: Executando hotifix
         if: ${{ contains(github.ref,'hotfix/')  }} # Contexto de Step
         run: echo "Executando job na branch hotifix/"
+      - name: Envio de falhas
+        if: ${{ failure() }}
+        run: echo "Envio de erros|" # Nível de Step
+      - name: Roda sempre
+        if: ${{ success() || failure() }}
+        run: echo "Roda sempre sem usar always()" # Nível de Step
+
+      

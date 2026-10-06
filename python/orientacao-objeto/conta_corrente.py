@@ -26,12 +26,12 @@ class ContaCorrente():
         return horario_BR
 
     def __init__(self, nome, cpf, agencia, numero_conta):
-        self._nome = nome
+        self.nome = nome
         self._cpf = cpf
         self._saldo = 0
         self._limite = None
-        self._agencia = agencia
-        self._numero_conta = numero_conta
+        self.agencia = agencia
+        self.numero_conta = numero_conta
         self._transacoes = []
         self.cartoes_credito = []
 
@@ -79,34 +79,18 @@ class CartaoCredito:
         self.titular = titular
         self.validade = f"{CartaoCredito._data_hora().month} / {CartaoCredito._data_hora().year + 4}"
         self.codigo_segurança = f"{randint(0, 9)}{randint(0, 9)}{randint(0, 9)}"
+        self._senha = '1234'
         self.limite = 1000
         self.conta_corrente = conta_corrente
         conta_corrente.cartoes_credito.append(self)
 
+    @property
+    def senha(self):
+        return self._senha
 
-# Programa
-
-# Funcionamento Classe ContaCorrente
-
-
-conta_corrente_1 = ContaCorrente("Douglas", "123.456.789-00", 1234, 45690)
-conta_corrente_2 = ContaCorrente("Jose", "123.456.789-01", 1234, 45691)
-
-conta_corrente_1.consultar_saldo()
-conta_corrente_1.depositar(10000)
-conta_corrente_1.sacar(200)
-conta_corrente_1.sacar(100)
-
-print("-" * 30)
-
-conta_corrente_1.mostrar_extrato()
-
-conta_corrente_1.transferir(1000, conta_corrente_2)
-conta_corrente_1.consultar_saldo()
-conta_corrente_2.consultar_saldo()
-
-# Funcionamento Classe CartaoCredito
-
-cartao_credito_1 = CartaoCredito('Douglas', conta_corrente_1)
-
-print(cartao_credito_1.codigo_segurança)
+    @senha.setter
+    def senha(self, valor):
+        if ((len(valor) == 4) and (valor.isnumeric())):
+            self._senha = valor
+        else:
+            print("Nova Senha Inválida")

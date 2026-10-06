@@ -1,0 +1,27 @@
+name: Controle de Execução
+
+on:
+  push:
+  workflow_dispatch: 
+
+jobs: 
+  apenas-main: 
+    if: ${{ github.ref == 'refs/heads/main' }} # Contexto de Job
+    name: Esse job só executa na branch main 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executando na main
+        run: |
+          echo "Executando job na branch main"
+          echo "Branch: ${{ github.ref }}"
+  feature-hotifix: 
+    name: Esse job só executa nas branchs feature/*
+    runs-on: ubuntu-latest
+    steps:
+      - name: Executando feature
+        if: ${{ contains(github.ref,'feature/')  }} # Contexto de Step
+        run: | 
+          echo "Executando job na branch feature/"
+      - name: Executando hotifix
+        if: ${{ contains(github.ref,'hotfix/')  }} # Contexto de Step
+        run: echo "Executando job na branch hotifix/"

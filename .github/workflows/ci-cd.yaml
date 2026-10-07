@@ -1,6 +1,6 @@
 name: CI/CD
 on: 
-  workflow_dispatch:  
+  workflow_dispatch:
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -13,4 +13,4 @@ jobs:
         run: echo "Publicação da Relase final"
   CD:
     needs: [CI]
-    uses: douglasmbarbosa/devops-study/github-actions/reusable-workflows/cd.yaml@main
+    uses: douglasmbarbosa/devops-study/.github/workflows/cd-reusable.yaml@main

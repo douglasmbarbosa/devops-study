@@ -1,6 +1,15 @@
 name: CI/CD
 on: 
   workflow_dispatch:
+    inputs:
+      ambiente:
+        type: choice
+        options:
+          - dev
+          - hml
+          - prd
+        description: "Ambiente que será feito o deploy"
+        required: true
 jobs:
   CI:
     runs-on: ubuntu-latest
@@ -14,3 +23,5 @@ jobs:
   CD:
     needs: [CI]
     uses: douglasmbarbosa/devops-study/.github/workflows/cd-reusable.yaml@main
+    with: 
+      ambiente: ${{ inputs.ambiente }}

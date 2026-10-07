@@ -1,9 +1,13 @@
 name: Deploy no Ambiente Kubernetes
 on: 
-    workflow_call:  
+    workflow_call:
+        inputs:
+            ambiente: 
+              type: string
+              required: true
 jobs:
     deploy-kubernetes:
         runs-on: ubuntu-latest
         steps:
             - name: Deploy no ambiente
-              run: echo "Executando o deploy no ambiente de desenvolvimento"
+              run: echo "Executando o deploy no ambiente de ${{ inputs.ambiente }}"

@@ -1,4 +1,5 @@
 from conta_corrente import ContaCorrente, CartaoCredito
+from agencia import AgenciaVirtual, AgenciaPremium, AgenciaComum
 
 conta_corrente_1 = ContaCorrente("Douglas", "123.456.789-00", 1234, 45690)
 conta_corrente_2 = ContaCorrente("Jose", "123.456.789-01", 1234, 45691)
